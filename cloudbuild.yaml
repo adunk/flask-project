@@ -23,6 +23,17 @@ steps:
       '--allow-unauthenticated'
     ]
 
+# Options
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+# Save test logs to Google Cloud Storage
+artifacts:
+  objects:
+    location: gs://${_BUCKET_NAME}/
+    paths:
+      - ${SHORT_SHA}_test_log.xml
+
   # Install dependencies
 #  - name: python
 #    entrypoint: pip`
@@ -32,13 +43,6 @@ steps:
 #  - name: python
 #    entrypoint: python
 #    args: ["-m", "pytest", "--junitxml=${SHORT_SHA}_test_log.xml"]
-
-# Save test logs to Goog`le Cloud Storage
-artifacts:
-  objects:
-    location: gs://${_BUCKET_NAME}/
-    paths:
-      - ${SHORT_SHA}_test_log.xml
 
 # Store images in Google Artifact Registry
 #images:
